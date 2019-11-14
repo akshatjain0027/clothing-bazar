@@ -1,0 +1,45 @@
+.col-md-4{
+    padding-top: 5em;
+    padding-bottom: 5em;
+    border: 2px solid gray;
+    width: 31%;
+    margin: 1%;
+    height: 280px;
+}
+.col-md-6{
+    padding-top: 5em;
+    padding-bottom: 5em;
+    border: 2px solid gray;
+    width: 47.5%;
+    margin: 1%;
+    height: 360px;
+}
+
+.content{
+    
+    width: 50%;
+    margin: auto;
+    margin-top: 2em;
+    border: 2px solid rgb(63, 63, 63);
+    text-align: center;
+    background-color: white;
+    opacity: 0.7;
+    
+}
+
+
+.menu-item{
+   
+    background-position: center;
+    background-size: cover;
+    
+}
+
+.menu-item:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: transform 3s cubic-bezier(0.25, 0.45, 0.45, 0.90);
+}
+.menu-item:hover .content{
+    opacity: 0.9;
+}
