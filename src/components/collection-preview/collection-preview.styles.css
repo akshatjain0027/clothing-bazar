@@ -1,0 +1,9 @@
+.title{
+    padding-left: 15px;
+    font-weight: 600;
+}
+hr{
+    margin-bottom: 30px;
+    margin-top: 0;
+    border-top: 2px solid rgba(128, 125, 125, 0.993);
+}
