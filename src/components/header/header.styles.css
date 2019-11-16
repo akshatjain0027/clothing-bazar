@@ -1,0 +1,17 @@
+.header{
+    margin-bottom: 5%;
+}
+
+i{
+    font-size: 50px;
+    color: orange;
+}
+
+.options{
+    float: right;
+    justify-content: space-between;
+    font-size: 25px;
+}
+.option{
+    padding: 10px 15px;
+}
