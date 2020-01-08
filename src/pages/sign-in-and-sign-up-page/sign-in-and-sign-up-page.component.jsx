@@ -1,9 +1,11 @@
 import React from 'react'
 import SignIn from '../../components/sign-in/sign-in.component'
+import SignUp from '../../components/sign-up/sign-up.component'
 
 const SignInAndSignUpPage = () => (
-    <div className='SignIn'>
+    <div className='SignIn-SignUp'>
         <SignIn/>
+        <SignUp/>
     </div>
     
 )

@@ -1,11 +1,11 @@
 .group{
-    margin: 2.5% 0 2.5% 0;
+    margin: 10% 0 10% 0;
 }
 
 .form-input{
     border: none;
     border-bottom: 1px solid grey;
-    width: 30%;
+    width: 100%;
 }
 
 .form-input:focus{
