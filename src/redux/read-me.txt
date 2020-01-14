@@ -1,0 +1,9 @@
+All the states related to our app is present in the redux folder.
+All these states are combined into single reducer in the root-reducer.js file.
+All the middlewares are set up in the store.js file. The store is also created in the store.js file.
+
+A reducer is just a function that gets two properties; state object(that represents the last/current state) and action object(that tells what action is to be performed on the state).
+
+
+The states related to our user is present in the user folder in the user.reducer.js file.
+The actions related to our user reducer is present in the user.action.js file in user folder.
