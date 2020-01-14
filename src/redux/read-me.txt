@@ -7,3 +7,4 @@ A reducer is just a function that gets two properties; state object(that represe
 
 The states related to our user is present in the user folder in the user.reducer.js file.
 The actions related to our user reducer is present in the user.action.js file in user folder.
+The action types of user are present in the file user.types.js
