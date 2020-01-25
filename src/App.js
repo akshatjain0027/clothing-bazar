@@ -1,15 +1,22 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { createStructuredSelector } from 'reselect'   // this function by default passes the top level state to our selectors without our explicitly mentioning the state.
 
 import './App.css';
 
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop-page/shop-page.component';
-import Header from './components/header/header.component';
+import CheckoutPage from './pages/checkout/checkoutpage.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up-page/sign-in-and-sign-up-page.component';
+
+import Header from './components/header/header.component';
+
 import {auth, createUserProfileDocument} from './firebase/firebase.utils'
+
 import { setCurrentUser } from './redux/user/user.action';
+import { selectCurrentUser } from './redux/user/user.selectors';
+
 
 class App extends React.Component {
   // The constructor is not required after the redux is used in the app
@@ -61,6 +68,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route exact path='/shop' component={ShopPage} /> 
+          <Route exact path='/checkout' component={CheckoutPage} /> 
           <Route exact path='/signin' render={ () => this.props.currentUser? (<Redirect to='/'/>): (<SignInAndSignUpPage/>)}/>  {/**the signin and signup page will only render if there is no current user present(logged in) in our app otherwise it will be redirected to our home page */}  
         </Switch>
       </div>
@@ -68,8 +76,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({user}) => ({
-  currentUser: user.currentUser
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 })
 
 // the mapdispatchtoprops function is used to dispatch the action to all the reducers. This means that we can use the setcurrentuser function in our app now.

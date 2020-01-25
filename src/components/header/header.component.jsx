@@ -1,10 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux' // It is a higher order component used to get access to redux. It connects the react component to redux store.
 import { Link } from 'react-router-dom'
+import { createStructuredSelector } from 'reselect'   // this function by default passes the top level state to our selectors without our explicitly mentioning the state.
+
 import './header.styles.css'
 import { auth } from '../../firebase/firebase.utils'
 import CartIcon from '../cart-icon/cart-icon.component'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component'
+import { selectCurrentUser } from '../../redux/user/user.selectors'
+import { selectCartHidden } from '../../redux/cart/cart.selectors'
 
 
 const Header = ({currentUser ,hidden}) => (
@@ -37,9 +41,9 @@ const Header = ({currentUser ,hidden}) => (
     </div>
 )
 
-const mapStateToProps = state => ({
-    currentUser : state.user.currentUser,
-    hidden: state.cart.hidden
+const mapStateToProps = createStructuredSelector({
+    currentUser : selectCurrentUser,
+    hidden: selectCartHidden
 });
 
 export default connect(mapStateToProps)(Header) ;

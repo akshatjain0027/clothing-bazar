@@ -1,0 +1,23 @@
+.checkout-page{
+    width: 60%;
+    margin: auto;
+}
+.checkout-header{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid darkgrey;
+    font-size: 25px;
+}
+.header-block{
+    width: 23%;
+}
+.header-block:last-child{
+    width: 8%;
+}
+
+.total{
+    font-size: 30px;
+    font-weight: 600;
+}

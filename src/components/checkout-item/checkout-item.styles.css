@@ -1,0 +1,36 @@
+.checkout-item{
+    display: flex;
+    min-height: 100px;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid gray;
+    font-size: 20px;
+}
+
+.image-container{
+    width: 23%;
+    height: 250px;
+    padding-right: 15px;
+    
+    overflow: hidden;
+}
+
+.name{
+    width: 23%;
+    
+}
+
+.price{
+    width: 23%;
+    
+}
+
+.quantity{
+    width: 23%;
+   
+}
+
+.remove-button{
+   
+    width: 8%;
+}
