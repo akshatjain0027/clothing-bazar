@@ -19,3 +19,16 @@ export const addItemToCart = (cartItems , cartItemToAdd) => {
     // if there are no existing cart items equal to the new cart item 
     return [ ...cartItems, { ...cartItemToAdd, quantity: 1}]
 } 
+
+// The removeItemFromCart function is used to remove items one by one by decreasing their quantity. If the quantity of the item is one then the whole item is removed.
+export const removeItemFromCart = (cartItems, cartItemToRemove) => {
+    const existingItem = cartItems.find( cartItem => cartItem.id === cartItemToRemove.id)
+
+    // if quantity is one
+    if(existingItem.quantity == 1){
+        return cartItems.filter( cartItem => cartItem.id !== cartItemToRemove.id)
+    }
+
+    // if quantity is not one
+    return cartItems.map( cartItem => cartItem.id === cartItemToRemove.id? { ...cartItem, quantity: cartItem.quantity -1}: cartItem)
+}
