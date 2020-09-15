@@ -2,18 +2,48 @@ import React from 'react'
 import Directory from '../../components/directory/directory.component'
 import './homepage.styles.css'
 import Carousel from 'react-material-ui-carousel'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles, Typography } from '@material-ui/core'
+import cartImage from "../../assets/cartImage.jpg"
 const styles = makeStyles({
+    cartImage: {
+        height: "500px", 
+        opacity: "0.8", 
+        borderRadius: "20px", 
+        border: "none"
+    },
+    hashtag: {
+        position: "absolute", 
+        top: "190px", 
+        left: "10%", 
+        fontFamily: "cursive", 
+        fontWeight: "bold"
+    },
+    catch: {
+        position: "absolute", 
+        top: "250px", 
+        left: "10%", 
+        fontFamily: "cursive", 
+        width: "20%"
+    },
     Carousel: {
         width: "100%",
-        height: "300px"
+        height: "300px",
     }
 })
 const HomePage = () => {
     const classes = styles()
     return ( 
     <div className='homepage'>
-        <Carousel className={classes.Carousel}  animation="fade" interval={3000} indicators={false}>
+        <div style={{ marginBottom: "1%"}}>
+            <img src={cartImage} className={classes.cartImage}/>
+            <Typography variant="h2" className={classes.hashtag}>
+                #OneClickShopping
+            </Typography>
+            <Typography variant="h3"className={classes.catch}>
+                Buy your favourite things with a single click
+            </Typography>
+        </div>
+        <Carousel className={classes.Carousel}  animation="slide" interval={3000} indicators={false}>
             <div style={{ height:"fit-content" }}>
                 <img src="https://images-eu.ssl-images-amazon.com/images/G/31/img20/TVs/BAU/MiGW/V247704887_IN_HETV_Mi_Horizon_GW_PC_Tollhero_1500x600_v2._CB405451160_.jpg" alt=""/>
             </div>
@@ -27,6 +57,7 @@ const HomePage = () => {
                 <img src="https://assets.myntassets.com/w_980,c_limit,fl_progressive,dpr_2.0/assets/images/2020/9/12/6bf3ad14-a959-4618-9df9-bd7d5514ed151599889503383-Happy-Hours-DK.jpg" alt=""/>
             </div>
         </Carousel>
+        
         <Directory/>
 
     </div>    
