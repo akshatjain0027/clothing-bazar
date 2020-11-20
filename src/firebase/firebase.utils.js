@@ -42,7 +42,48 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     return userReference;  // returning the userReference object for further use in our application
 
 }
+// export const createproductsdata = () => {
+//     const productIds = []
+//     for(var i =0; i<productIds.length; i++){
+//         const url = `https://www.clubfactory.com/gw/cf-detail/api/v1/product/info?productId=${productIds[i]}`
+//         fetch(url)
+//         .then(response => response.json())
+//         .then(result => {
+//             const data = result.body
+//             console.log(data)
+//             const res = firestore.collection("products").doc("t-shirts").collection("women").doc(String(data.id)).set({
+//                 id: data.id,
+//                 name: data.name,
+//                 specifications: data.specificsDTOList,
+//                 discountPrice: data.listPriceLocal*87,
+//                 actualPrice: data.markingPriceLocal*87,
+//                 images: data.productImageList,
+//                 discountPercentage: data.off*100
+//             })
+//         })
+//     }
+// }
 
+export const getAllProducts = async ()=> {
+    const reference = firestore.collection("products");
+    const snapshot = await reference.get() ;
+    // snapshot.forEach(async snap => {
+    //     const ref = snap.ref.collection("men")
+    //     const s = await ref.get();
+    //     s.forEach(p => {
+    //         console.log(p.data())
+    //     })
+    //     // console.log(snap.ref.collection("men"))
+    // });
+    // console.log(snapshot)
+    return snapshot;
+}
+
+export const getParticularCategory = async (category) => {
+    const reference = firestore.collection("products").doc(category);
+    const snapshot = await reference.get();
+    return snapshot
+}
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 

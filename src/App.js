@@ -12,7 +12,7 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up-page/sign-in-and-si
 
 import Header from './components/header/header.component';
 
-import {auth, createUserProfileDocument} from './firebase/firebase.utils'
+import {auth, createproductsdata, createUserProfileDocument, getAllProducts} from './firebase/firebase.utils'
 
 import { setCurrentUser } from './redux/user/user.action';
 import { selectCurrentUser } from './redux/user/user.selectors';
@@ -59,7 +59,9 @@ class App extends React.Component {
   componentWillUnmount(){
     this.unsubscribeFromAuth()
   }
-
+  Shop = ()=>{
+    return <div>hello world</div>
+  }
 
   render(){
     return (
@@ -67,9 +69,10 @@ class App extends React.Component {
         <Header/>
         <Switch>
           <Route exact path='/' component={HomePage} />
-          <Route exact path='/shop' component={ShopPage} /> 
+          {/* <Route exact path='/shop' component={ShopPage} />  */}
           <Route exact path='/checkout' component={CheckoutPage} /> 
           <Route exact path='/signin' render={ () => this.props.currentUser? (<Redirect to='/'/>): (<SignInAndSignUpPage/>)}/>  {/**the signin and signup page will only render if there is no current user present(logged in) in our app otherwise it will be redirected to our home page */}  
+          <Route exact path="/shop/:category" component={ShopPage}/>
         </Switch>
       </div>
     );

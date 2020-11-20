@@ -3,12 +3,10 @@ import Directory from '../../components/directory/directory.component'
 import './homepage.styles.css'
 import Carousel from 'react-material-ui-carousel'
 import { makeStyles, Typography } from '@material-ui/core'
-import cartImage from "../../assets/cartImage.jpg"
+import vibrantImage2 from "../../assets/vibrantImage2.jpg"
 const styles = makeStyles({
     cartImage: {
-        height: "500px", 
-        opacity: "0.8", 
-        borderRadius: "20px", 
+        height: "500px",
         border: "none"
     },
     hashtag: {
@@ -16,14 +14,18 @@ const styles = makeStyles({
         top: "190px", 
         left: "10%", 
         fontFamily: "cursive", 
-        fontWeight: "bold"
+        fontWeight: "bold",
+        width: "40%",
+        color: "white"
     },
     catch: {
         position: "absolute", 
         top: "250px", 
         left: "10%", 
         fontFamily: "cursive", 
-        width: "20%"
+        width: "20%",
+        // textAlign: "center",
+        color: "white"
     },
     Carousel: {
         width: "100%",
@@ -35,7 +37,7 @@ const HomePage = () => {
     return ( 
     <div className='homepage'>
         <div style={{ marginBottom: "1%"}}>
-            <img src={cartImage} className={classes.cartImage}/>
+            <img src={vibrantImage2} className={classes.cartImage}/>
             <Typography variant="h2" className={classes.hashtag}>
                 #OneClickShopping
             </Typography>

@@ -1,4 +1,7 @@
+import { Card, Grid, Typography } from '@material-ui/core';
 import React from 'react'
+import { Link } from 'react-router-dom';
+import { getAllProducts } from '../../firebase/firebase.utils';
 import MenuItem from '../menu-item/menu-item.component';
 
 class Directory extends React.Component{
@@ -6,6 +9,7 @@ class Directory extends React.Component{
         super();
 
         this.state = {
+            newSections:[],
             sections: [
                 {
                     title: 'hats',
@@ -44,10 +48,41 @@ class Directory extends React.Component{
             ]
         }
     };
+    componentDidMount(){
+        var newSections = []
+        getAllProducts().then(snapshot => {
+            snapshot.forEach(snap => {
+                console.log(snap.id.toUpperCase())
+                newSections.push(snap.id)
+            })
+            this.setState({
+                newSections: newSections
+            })
+        })
+    }
 
+    renderCategories = () => {
+        const {newSections} = this.state;
+        return newSections.map(s => {
+            return <Grid style={{width: "30%"}}>
+                <Card elevation={8} style={{backgroundImage: "url(https://i.ibb.co/px2tCc3/jackets.png)", textAlign: "center", padding: "20%"}}>
+                    <Typography variant="h1" component={Link} to={`/shop/${s}`}>
+                        {s.toUpperCase()}
+                    </Typography>
+                </Card>
+                
+            </Grid>
+        })
+    }
     render(){
         return(
-            <div className='directory-menu'>
+            <div className='directory-menu' style={{margin: "2%"}}>
+                <Grid container direction="row" justify="space-between">
+                {
+                    this.renderCategories()
+                }
+                </Grid>
+                
                 {
                     this.state.sections.map(({id, ...otherSectionProps}) => (  //otherSectionProps is used to use the sections properties in menu items using same name (eg. title)
                         <MenuItem key={id} {...otherSectionProps}/>
