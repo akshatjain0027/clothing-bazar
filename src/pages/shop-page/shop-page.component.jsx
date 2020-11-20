@@ -1,10 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux';
 import SHOP_DATA from './shop-page.data'
 import CollectionPreview from '../../components/collection-preview/collection-preview.component';
 import './shop-page.styles.css'
 import { getParticularCategory } from '../../firebase/firebase.utils';
 import { Card, CircularProgress, Fab, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, Typography } from '@material-ui/core';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import { addItem } from '../../redux/cart/cart.action';
 
 class ShopPage extends React.Component {
     constructor(props) {
@@ -61,7 +63,7 @@ class ShopPage extends React.Component {
                             <Typography variant="h5" style={{ textAlign: "center" }}>{item.name}</Typography>
                             <Grid container direction="row" justify="space-between" style={{ paddingTop: "10%", textAlign: "center" }}>
                                 <Typography variant="h4">Rs. {item.discountPrice.toPrecision(4)}</Typography>
-                                <Fab color="default" size="small">
+                                <Fab color="default" size="small" onClick={()=> this.props.addItem(item)}>
                                     <ShoppingCartOutlinedIcon fontSize="small" />
                                 </Fab>
                             </Grid>
@@ -117,4 +119,8 @@ class ShopPage extends React.Component {
     }
 }
 
-export default ShopPage
+const mapDispatchToProps = dispatch => ({
+    addItem: item => dispatch(addItem(item))
+})
+
+export default connect(null, mapDispatchToProps)(ShopPage);

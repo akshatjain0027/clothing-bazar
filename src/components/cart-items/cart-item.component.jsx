@@ -1,16 +1,16 @@
+import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 
 import './cart-item.styles.css'
 
-const CartItem = ({item: {name, imageUrl, price, quantity}}) => (
-    <div className='cart-item'>
-        <img className='image' src={imageUrl} alt='item'/>
-        <div className='cart-details'>
-            <span>{name}</span>
-            <span>{quantity} x ${price}</span>
-
-        </div>
-    </div>
+const CartItem = ({item: {name, images, discountPrice, quantity}}) => (
+    <Grid container direction="column" justify="space-between" style={{height: "100px", marginBottom: "10px"}}>
+        <img style={{width: "50%", height: "100%"}} src={images[0]} alt='item'/>
+        <Grid direction="row" style={{color: "black", width: "50%", textAlign: "center", padding: "1%"}}>
+            <Typography style={{marginBottom: "5px"}}>{name}</Typography>
+            <Typography>{quantity} x ${discountPrice.toPrecision(4)}</Typography>
+        </Grid>
+    </Grid>
 )
 
 

@@ -1,6 +1,8 @@
 .checkout-page{
-    width: 60%;
+    /* width: 60%; */
+    padding: 2%;
     margin: auto;
+    margin-top: 6%;
 }
 .checkout-header{
     width: 100%;
