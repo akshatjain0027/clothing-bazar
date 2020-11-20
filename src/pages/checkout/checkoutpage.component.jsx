@@ -7,6 +7,7 @@ import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selector
 import CheckoutItem from '../../components/checkout-item/checkout-item.components';
 import { Card, Typography } from '@material-ui/core';
 import background from "../../assets/cart2.jfif";
+import StripePaymentButton from '../../components/stripe-button/stripe-button';
 const CheckoutPage = ({cartItems, total}) => (
     <div>
         <img src={background} style={{position: "relative",width: "100%", height: "600px", opacity: "1"}}/>
@@ -45,8 +46,9 @@ const CheckoutPage = ({cartItems, total}) => (
                     )
                 }
                 <div className='total'>
-                    <span>TOTAL: Rs. {total}</span>
+                    <span>TOTAL: &#x20B9; {total}</span>
                 </div>
+                <StripePaymentButton discountPrice={total}/>
             </div>
         </Card>
     </div>

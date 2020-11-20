@@ -62,7 +62,7 @@ class ShopPage extends React.Component {
                         <Grid container direction="column" style={{ padding: "5%" }}>
                             <Typography variant="h5" style={{ textAlign: "center" }}>{item.name}</Typography>
                             <Grid container direction="row" justify="space-between" style={{ paddingTop: "10%", textAlign: "center" }}>
-                                <Typography variant="h4">Rs. {item.discountPrice.toPrecision(4)}</Typography>
+                                <Typography variant="h4">&#x20B9; {item.discountPrice.toPrecision(4)}</Typography>
                                 <Fab color="default" size="small" onClick={()=> this.props.addItem(item)}>
                                     <ShoppingCartOutlinedIcon fontSize="small" />
                                 </Fab>

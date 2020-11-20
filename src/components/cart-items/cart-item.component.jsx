@@ -8,7 +8,7 @@ const CartItem = ({item: {name, images, discountPrice, quantity}}) => (
         <img style={{width: "50%", height: "100%"}} src={images[0]} alt='item'/>
         <Grid direction="row" style={{color: "black", width: "50%", textAlign: "center", padding: "1%"}}>
             <Typography style={{marginBottom: "5px"}}>{name}</Typography>
-            <Typography>{quantity} x ${discountPrice.toPrecision(4)}</Typography>
+            <Typography>{quantity} x &#x20B9;{discountPrice.toPrecision(4)}</Typography>
         </Grid>
     </Grid>
 )
