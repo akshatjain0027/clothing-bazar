@@ -1,12 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import SHOP_DATA from './shop-page.data'
-import CollectionPreview from '../../components/collection-preview/collection-preview.component';
 import './shop-page.styles.css'
 import { getParticularCategory } from '../../firebase/firebase.utils';
-import { Card, CircularProgress, Fab, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, Typography } from '@material-ui/core';
+import { Card, CircularProgress, Drawer, Fab, FormControl, FormControlLabel, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, Typography, withStyles } from '@material-ui/core';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import MenuIcon from '@material-ui/icons/Menu';
 import { addItem } from '../../redux/cart/cart.action';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+import wavy from "../../assets/wavy.jpg"
+
+const CustomDrawer = withStyles(theme => ({
+    paper: {
+        width: "20%",
+    }
+}))(Drawer);
 
 class ShopPage extends React.Component {
     constructor(props) {
@@ -18,7 +27,9 @@ class ShopPage extends React.Component {
             loading: true,
             mensCollections: [],
             womensCollections: [],
-            genderValue: "male"
+            genderValue: "male",
+            drawerOpen: false,
+            sortBy: "none"
         }
     }
     componentDidMount() {
@@ -45,15 +56,26 @@ class ShopPage extends React.Component {
         })
     }
 
-    onGenderValueChange = (event)=>{
+    onGenderValueChange = (event) => {
         this.setState({
             genderValue: event.target.value
         })
     }
+    handleSortMenuChange = (event) => {
+        this.setState({
+            sortBy: event.target.value
+        })
+    }
+    handleDrawer = () => {
+        this.setState({
+            drawerOpen: !this.state.drawerOpen
+        })
+    }
 
     renderProducts = () => {
-        const { mensCollections, womensCollections, genderValue } = this.state;
-        const products = genderValue == "male"? mensCollections: womensCollections ;
+        const { mensCollections, womensCollections, genderValue, sortBy } = this.state;
+        var products = genderValue === "male" ? mensCollections : womensCollections;
+        products = sortBy === "price" ? products.sort((a, b) => a.discountPrice - b.discountPrice) : products;
         return products.map(item => {
             return (
                 <Grid container direction="column" style={{ width: "25%", padding: "2%" }}>
@@ -63,64 +85,101 @@ class ShopPage extends React.Component {
                             <Typography variant="h5" style={{ textAlign: "center" }}>{item.name}</Typography>
                             <Grid container direction="row" justify="space-between" style={{ paddingTop: "10%", textAlign: "center" }}>
                                 <Typography variant="h4">&#x20B9; {item.discountPrice.toPrecision(4)}</Typography>
-                                <Fab color="default" size="small" onClick={()=> this.props.addItem(item)}>
-                                    <ShoppingCartOutlinedIcon fontSize="small" />
-                                </Fab>
+                                {
+                                    this.props.currentUser ?
+                                        <Fab color="default" size="small" onClick={() => this.props.addItem(item)}>
+                                            <ShoppingCartOutlinedIcon fontSize="small" />
+                                        </Fab>
+                                        : null
+                                }
                             </Grid>
                         </Grid>
-
                     </Card>
-
                 </Grid>
             )
         })
     }
 
-    genderButtons = ()=>{
-        const {genderValue} = this.state;
+    genderButtons = () => {
+        const { genderValue } = this.state;
         return (
             <FormControl component="fieldset">
-              <FormLabel component="legend">Gender</FormLabel>
-              <RadioGroup aria-label="gender" name="gender1" value={genderValue} onChange={this.onGenderValueChange}>
-                <FormControlLabel value="female" control={<Radio />} label="Female"/>
-                <FormControlLabel value="male" control={<Radio />} label="Male" />
-              </RadioGroup>
+                <FormLabel component="legend">Gender</FormLabel>
+                <RadioGroup aria-label="gender" name="gender1" value={genderValue} onChange={this.onGenderValueChange}>
+                    <FormControlLabel value="female" control={<Radio />} label="Female" />
+                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                </RadioGroup>
             </FormControl>
-          );
-        
+        );
+
+    }
+
+    sortMenu = () => {
+        const { sortBy } = this.state;
+        return (
+            <FormControl>
+                <InputLabel id="sort-select">SORT BY</InputLabel>
+                <Select
+                    labelId="sort-select"
+                    id="sort-select"
+                    value={sortBy}
+                    onChange={this.handleSortMenuChange}
+                >
+                    <MenuItem value="none">None</MenuItem>
+                    <MenuItem value="price">Price</MenuItem>
+                </Select>
+            </FormControl>
+        )
     }
 
     render() {
-        const { category, loading } = this.state
+        const { category, loading, drawerOpen } = this.state
         console.log(this.state.womensCollections)
         return loading ?
             <div style={{ margin: "20% 50%" }}><CircularProgress color="secondary" size={100} /></div> : (
-                <div className='shop-page' style={{ margin: "6%" }}>
-                    <Typography variant="h3">
-                        {category.toUpperCase()} YOU MAY LIKE
-                    </Typography>
-                    <hr />
-                    {this.genderButtons()}
-                    <Grid container direction="row" justify="space-between">
-                        {
-                            this.renderProducts()
-                        }
-                    </Grid>
+                <div>
+                    <img src={wavy} alt="" style={{ width: "100%", height: "600px", position: "relative" }} />
+                    <div className='shop-page' style={{ margin: "6%", position: "absolute", top: "100px" }}>
+                        <CustomDrawer anchor="right" variant="temporary" open={drawerOpen} onClose={this.handleDrawer}>
+                            <Grid container direction="column" style={{ padding: "5%" }}>
+                                <Typography variant="h3">
+                                    Filters
+                                </Typography>
+                                {this.genderButtons()}
+                                {this.sortMenu()}
+                            </Grid>
+                        </CustomDrawer>
+                        <Typography variant="h1" style={{ color: "white", textAlign: "center", fontFamily: "cursive", marginBottom: "5%" }}>
+                            {category.toUpperCase()}
+                        </Typography>
+                        <Card elevation={8} style={{ padding: "2%", backgroundColor: "beige" }}>
+                            <Fab onClick={this.handleDrawer}>
+                                <MenuIcon color="secondary" fontSize="large" />
+                            </Fab>
+                            <Grid container direction="row" justify="space-between">
+                                {
+                                    this.renderProducts()
+                                }
+                            </Grid>
+                        </Card>
 
-                    {/* {
-                    collections.map(({id, ...otherCollectionProps}) => (
-                        <CollectionPreview key={id}  {...otherCollectionProps}/>
-                    ))
-                } */}
+                        {/* {
+                        collections.map(({id, ...otherCollectionProps}) => (
+                            <CollectionPreview key={id}  {...otherCollectionProps}/>
+                        ))
+                    } */}
 
+                    </div>
                 </div>
-
             )
     }
 }
 
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser
+})
 const mapDispatchToProps = dispatch => ({
     addItem: item => dispatch(addItem(item))
 })
 
-export default connect(null, mapDispatchToProps)(ShopPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);

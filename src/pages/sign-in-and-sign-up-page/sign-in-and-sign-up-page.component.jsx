@@ -5,7 +5,7 @@ import './sign-in-and-sign-up-page.styles.css'
 import background from "../../assets/background2.jpg"
 const SignInAndSignUpPage = () => (
     <div className='SignIn-SignUp'>
-        <img src={background} style={{ position: "relative", height: "900px", opacity: "0.7"}}/>
+        <img src={background} alt="" style={{ position: "relative", height: "900px", opacity: "0.7", width: "100%"}}/>
         <SignIn/>
         <SignUp/>
     </div>

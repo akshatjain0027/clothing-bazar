@@ -10,7 +10,7 @@ import background from "../../assets/cart2.jfif";
 import StripePaymentButton from '../../components/stripe-button/stripe-button';
 const CheckoutPage = ({cartItems, total}) => (
     <div>
-        <img src={background} style={{position: "relative",width: "100%", height: "600px", opacity: "1"}}/>
+        <img src={background} alt="" style={{position: "relative",width: "100%", height: "600px", opacity: "1"}}/>
         <div style={{top: "150px", position: "absolute", left: "550px", color: "white", textAlign: "center"}}>
             <Typography variant="h1" style={{fontFamily: "cursive", fontWeight: "bold"}}>
                 YOUR CART

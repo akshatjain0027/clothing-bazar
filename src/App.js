@@ -12,7 +12,7 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up-page/sign-in-and-si
 
 import Header from './components/header/header.component';
 
-import {auth, createproductsdata, createUserProfileDocument, getAllProducts} from './firebase/firebase.utils'
+import {auth, createUserProfileDocument} from './firebase/firebase.utils'
 
 import { setCurrentUser } from './redux/user/user.action';
 import { selectCurrentUser } from './redux/user/user.selectors';
@@ -58,9 +58,6 @@ class App extends React.Component {
   }
   componentWillUnmount(){
     this.unsubscribeFromAuth()
-  }
-  Shop = ()=>{
-    return <div>hello world</div>
   }
 
   render(){

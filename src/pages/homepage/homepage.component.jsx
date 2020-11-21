@@ -7,7 +7,8 @@ import vibrantImage2 from "../../assets/vibrantImage2.jpg"
 const styles = makeStyles({
     cartImage: {
         height: "500px",
-        border: "none"
+        border: "none",
+        width: "100%"
     },
     hashtag: {
         position: "absolute", 
@@ -37,7 +38,7 @@ const HomePage = () => {
     return ( 
     <div className='homepage'>
         <div style={{ marginBottom: "1%"}}>
-            <img src={vibrantImage2} className={classes.cartImage}/>
+            <img src={vibrantImage2} alt="" className={classes.cartImage}/>
             <Typography variant="h2" className={classes.hashtag}>
                 #OneClickShopping
             </Typography>
