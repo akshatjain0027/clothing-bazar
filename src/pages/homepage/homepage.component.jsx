@@ -2,7 +2,7 @@ import React from 'react'
 import Directory from '../../components/directory/directory.component'
 import './homepage.styles.css'
 import Carousel from 'react-material-ui-carousel'
-import { makeStyles, Typography } from '@material-ui/core'
+import { Box, Button, Divider, makeStyles, Typography } from '@material-ui/core'
 import vibrantImage2 from "../../assets/vibrantImage2.jpg"
 const styles = makeStyles({
     cartImage: {
@@ -28,6 +28,12 @@ const styles = makeStyles({
         // textAlign: "center",
         color: "white"
     },
+    shopButton: {
+        position: "absolute",
+        left: "10%",
+        top: "370px",
+        width: "8%"
+    },
     Carousel: {
         width: "100%",
         height: "300px",
@@ -45,6 +51,9 @@ const HomePage = () => {
             <Typography variant="h3"className={classes.catch}>
                 Buy your favourite things with a single click
             </Typography>
+            <Button className={classes.shopButton} size="large" variant="contained" color="secondary" onClick={()=>{window.scrollTo(0,820)}}>
+                Shop Now
+            </Button>
         </div>
         <Carousel className={classes.Carousel}  animation="slide" interval={3000} indicators={false}>
             <div style={{ height:"fit-content" }}>
@@ -60,6 +69,12 @@ const HomePage = () => {
                 <img src="https://assets.myntassets.com/w_980,c_limit,fl_progressive,dpr_2.0/assets/images/2020/9/12/6bf3ad14-a959-4618-9df9-bd7d5514ed151599889503383-Happy-Hours-DK.jpg" alt=""/>
             </div>
         </Carousel>
+        <Box paddingLeft="3%" paddingTop="2%">
+            <Typography variant="h2">
+                CATEGORIES
+            </Typography>
+            <Divider/>
+        </Box>
         
         <Directory/>
 

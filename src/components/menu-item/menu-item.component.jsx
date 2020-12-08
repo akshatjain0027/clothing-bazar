@@ -1,32 +1,29 @@
+import { Card } from '@material-ui/core'
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import './menu-item.styles.css'
 
-const MenuItem = ({title, size, imageUrl, history, linkUrl, match}) => {
-    // to add a background image
-    const styles = {
-        backgroundImage: 'url('+ imageUrl + ')'
-    }
+const MenuItem = ({category, imageUrl, history, match}) => {
 
     // for making men and women menu items
-    if(size==='large'){
-        var className = 'menu-item col-md-6'
-    }
+    // if(size==='large'){
+    //     var className = 'menu-item col-md-6'
+    // }
 
-    // for making hats, jackets and sneakers menu items
-    else{
-        className = 'menu-item col-md-4'
-    }
+    // // for making hats, jackets and sneakers menu items
+    // else{
+    //     className = 'menu-item col-md-4'
+    // }
 
     return (
     
-        <div style={styles}  className={className} onClick={() => history.push(linkUrl)}>
+        <Card style={{backgroundImage: `url(${imageUrl})`}} elevation={8} className="menu-item col-md-4" onClick={() => history.push(`/shop/${category}`)}>
             
             <div className='content'>
-                <h1>{title.toUpperCase()}</h1>
+                <h1>{category.toUpperCase()}</h1>
                 <span>SHOP NOW</span> 
             </div>                
-        </div>
+        </Card>
     )
     
     

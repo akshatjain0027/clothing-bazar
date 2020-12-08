@@ -60,10 +60,10 @@ const Header = ({ currentUser, hidden }) => {
                         </Typography>
                     </div>
                     <div className={classes.options}>
-                        <Link className={classes.option} to='/shop'>
+                        {/* <Link className={classes.option} to='/shop'>
                             SHOP
-                    </Link>
-                        <Link className={classes.option} to='/shop'>
+                    </Link> */}
+                        <Link className={classes.option} to='#'>
                             CONTACT
                     </Link>
                         {/* Managing sign in and sign out links in our header */}

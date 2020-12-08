@@ -10,6 +10,8 @@ import { addItem } from '../../redux/cart/cart.action';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import wavy from "../../assets/wavy.jpg"
+import { withRouter } from 'react-router-dom';
+import ProductPage from '../product-page/product-page';
 
 const CustomDrawer = withStyles(theme => ({
     paper: {
@@ -29,7 +31,9 @@ class ShopPage extends React.Component {
             womensCollections: [],
             genderValue: "male",
             drawerOpen: false,
-            sortBy: "none"
+            sortBy: "none",
+            productDialogOpen: false ,
+            productDialogItem: null
         }
     }
     componentDidMount() {
@@ -71,16 +75,28 @@ class ShopPage extends React.Component {
             drawerOpen: !this.state.drawerOpen
         })
     }
+    handleProductDialogOpen = item => {
+        this.setState({
+            productDialogOpen: true,
+            productDialogItem: item
+        })
+    }
+    handleProductDialogClose = () => {
+        this.setState({
+            productDialogOpen: false,
+            productDialogItem: null
+        })
+    }
 
     renderProducts = () => {
-        const { mensCollections, womensCollections, genderValue, sortBy } = this.state;
+        const { mensCollections, womensCollections, genderValue, sortBy, category } = this.state;
         var products = genderValue === "male" ? mensCollections : womensCollections;
         products = sortBy === "price" ? products.sort((a, b) => a.discountPrice - b.discountPrice) : products;
         return products.map(item => {
             return (
                 <Grid container direction="column" style={{ width: "25%", padding: "2%" }}>
                     <Card elevation={10}>
-                        <img src={item.images[0]} alt="" style={{ width: "100%", height: "70%" }} />
+                        <img src={item.images[0]} alt="" style={{ width: "100%", height: "70%", cursor: "pointer" }} onClick={()=>{this.handleProductDialogOpen(item)}}/>
                         <Grid container direction="column" style={{ padding: "5%" }}>
                             <Typography variant="h5" style={{ textAlign: "center" }}>{item.name}</Typography>
                             <Grid container direction="row" justify="space-between" style={{ paddingTop: "10%", textAlign: "center" }}>
@@ -133,11 +149,12 @@ class ShopPage extends React.Component {
     }
 
     render() {
-        const { category, loading, drawerOpen } = this.state
+        const { category, loading, drawerOpen, productDialogOpen, productDialogItem } = this.state
         console.log(this.state.womensCollections)
         return loading ?
             <div style={{ margin: "20% 50%" }}><CircularProgress color="secondary" size={100} /></div> : (
                 <div>
+                    {productDialogOpen && <ProductPage open={productDialogOpen} product={productDialogItem} handleClose={this.handleProductDialogClose}/>}
                     <img src={wavy} alt="" style={{ width: "100%", height: "600px", position: "relative" }} />
                     <div className='shop-page' style={{ margin: "6%", position: "absolute", top: "100px" }}>
                         <CustomDrawer anchor="right" variant="temporary" open={drawerOpen} onClose={this.handleDrawer}>
@@ -163,12 +180,6 @@ class ShopPage extends React.Component {
                             </Grid>
                         </Card>
 
-                        {/* {
-                        collections.map(({id, ...otherCollectionProps}) => (
-                            <CollectionPreview key={id}  {...otherCollectionProps}/>
-                        ))
-                    } */}
-
                     </div>
                 </div>
             )
@@ -182,4 +193,4 @@ const mapDispatchToProps = dispatch => ({
     addItem: item => dispatch(addItem(item))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ShopPage));
