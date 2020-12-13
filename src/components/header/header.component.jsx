@@ -63,7 +63,7 @@ const Header = ({ currentUser, hidden }) => {
                         {/* <Link className={classes.option} to='/shop'>
                             SHOP
                     </Link> */}
-                        <Link className={classes.option} to='#'>
+                        <Link className={classes.option} to='/contact'>
                             CONTACT
                     </Link>
                         {/* Managing sign in and sign out links in our header */}

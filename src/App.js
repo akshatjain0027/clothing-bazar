@@ -17,6 +17,7 @@ import {auth, createUserProfileDocument} from './firebase/firebase.utils'
 import { setCurrentUser } from './redux/user/user.action';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import ProductPage from './pages/product-page/product-page';
+import ContactPage from './pages/contact-page/contactPage';
 
 
 class App extends React.Component {
@@ -67,7 +68,7 @@ class App extends React.Component {
         <Header/>
         <Switch>
           <Route exact path='/' component={HomePage} />
-          {/* <Route exact path='/shop' component={ShopPage} />  */}
+          <Route exact path='/contact' component={ContactPage} /> 
           <Route exact path='/checkout' component={CheckoutPage} /> 
           <Route exact path='/signin' render={ () => this.props.currentUser? (<Redirect to='/'/>): (<SignInAndSignUpPage/>)}/>  {/**the signin and signup page will only render if there is no current user present(logged in) in our app otherwise it will be redirected to our home page */}  
           <Route exact path="/shop/:category" component={ShopPage}/>
